@@ -1,0 +1,1292 @@
+<style>
+  /* Sage Coast Community Template (sc-community) */
+  :root{
+    --sc-dark:#0b141e;
+    --sc-ink:#162736;
+    --sc-gold:#cbaa67;
+    --sc-cream:#e9e2d0;
+
+    --sc-bg:#f5f5f5;
+    --sc-bg-alt:#eef1f3; /* FIX: previously missing */
+    --sc-card:#ffffff;
+
+    --sc-muted:rgba(11,20,30,.72);
+    --sc-border:rgba(11,20,30,.10);
+    --sc-shadow:0 14px 34px rgba(11,20,30,.10);
+    --sc-radius:14px;
+  }
+
+  .sc-community{ font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--sc-ink); }
+  .sc-community *{ box-sizing:border-box; }
+
+  .sc-wrap{ max-width:1320px; margin:0 auto; padding:0 clamp(18px,3vw,34px); }
+  .sc-section{ padding: clamp(44px, 4.5vw, 66px) 0; }
+  .sc-section.sm{ padding: clamp(28px, 3vw, 40px) 0; }
+
+  
+  /* Full-bleed bands (no "page builder" HR lines) */
+  .sc-community{
+    background: var(--sc-dark);
+  }
+
+  .sc-section{
+    scroll-margin-top: 96px;
+    position: relative;
+    background: linear-gradient(180deg, var(--sc-bg) 0%, var(--sc-bg-alt) 100%);
+    overflow: hidden;
+  }
+
+  /* soft top/bottom separators that fade (replaces <hr>) */
+  .sc-section::before,
+  .sc-section::after{
+    content:"";
+    position:absolute;
+    left:0; right:0;
+    height:1px;
+    pointer-events:none;
+    opacity:.7;
+  }
+  .sc-section::before{
+    top:0;
+    background: linear-gradient(90deg, transparent 0%, rgba(11,20,30,.14) 12%, rgba(11,20,30,.10) 50%, rgba(11,20,30,.14) 88%, transparent 100%);
+  }
+  .sc-section::after{
+    bottom:0;
+    background: linear-gradient(90deg, transparent 0%, rgba(11,20,30,.10) 15%, rgba(11,20,30,.06) 50%, rgba(11,20,30,.10) 85%, transparent 100%);
+  }
+
+  /* Alternate band tones automatically for long pages */
+  .sc-community > section.sc-section:nth-of-type(even){
+    background: linear-gradient(180deg, #f1f3f5 0%, #e9edf0 100%);
+  }
+
+  /* Dark band (popular searches) stays luxe */
+  .sc-band-dark{
+    background: radial-gradient(1200px 540px at 20% 0%, rgba(203,170,103,.10), transparent 60%),
+                linear-gradient(180deg, rgba(11,20,30,.98), rgba(11,20,30,.94));
+    color: rgba(255,255,255,.92);
+  }
+  .sc-band-dark::before,
+  .sc-band-dark::after{
+    background: linear-gradient(90deg, transparent 0%, rgba(203,170,103,.26) 18%, rgba(203,170,103,.14) 50%, rgba(203,170,103,.26) 82%, transparent 100%);
+    opacity:.9;
+  }
+
+  /* Make widgets feel integrated (less "Elementor box") */
+  .sc-widget{
+    background: rgba(255,255,255,.92);
+    border: 1px solid rgba(11,20,30,.08);
+    box-shadow: 0 18px 48px rgba(11,20,30,.10);
+    backdrop-filter: blur(6px);
+  }
+  .sc-widget:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 26px 70px rgba(11,20,30,.14);
+  }
+
+  /* Let BuyingBuddy/embedded widgets actually span the available width */
+  .sc-widget :is(iframe, embed, object, svg, canvas){
+    max-width: 100% !important;
+  }
+  .sc-widget *{
+    box-sizing: border-box;
+  }
+
+  /* Section spacing + headline rhythm */
+  .sc-h2{ margin-top:0; }
+  .sc-lead{ max-width: 78ch; }
+
+  /* Divider utility no longer needed */
+  .sc-divider{ display:none !important; }
+/* Subtle separators to guide the eye */
+  .sc-divider{ height:1px; background:var(--sc-border); }
+  .sc-divider.inset{ margin:0 auto; max-width:1180px; opacity:.9; }
+
+  /* Slim luxury header (no huge hero) */
+  .sc-topband{
+    background:
+      radial-gradient(circle at top, rgba(203,170,103,.18), transparent 52%),
+      linear-gradient(180deg, #0b141e, #0b141e);
+    border-bottom:1px solid rgba(203,170,103,.22);
+  }
+  .sc-topband .sc-wrap{ padding-top:28px; padding-bottom:28px; }
+
+  .sc-breadcrumbs{
+    color:rgba(233,226,208,.80);
+    font-size:.92rem;
+    letter-spacing:.02em;
+  }
+  .sc-breadcrumbs a{
+    color:rgba(233,226,208,.90);
+    text-decoration:none;
+    border-bottom:1px solid rgba(203,170,103,.35);
+  }
+  .sc-breadcrumbs a:hover{ color:#fff; border-bottom-color:rgba(203,170,103,.75); }
+
+  .sc-h1{
+    margin-top:10px;
+    font-family:"Cormorant Garamond",serif;
+    font-weight:400;
+    font-size: clamp(2.2rem, 4vw, 3.05rem);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    color:#fff;
+  }
+  .sc-sub{
+    margin-top:10px;
+    max-width:78ch;
+    font-size:1.10rem;
+    color:rgba(233,226,208,.92);
+  }
+
+  /* Light global polish */
+  .sc-community ::selection{ background: rgba(203,170,103,.24); }
+  .sc-community p{ text-wrap: pretty; }
+  .sc-community img{ max-width:100%; height:auto; }
+
+  .sc-quicklinks{
+    margin-top:18px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .sc-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 14px;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:.98rem;
+    color:rgba(255,255,255,.92);
+    border:1px solid rgba(203,170,103,.38);
+    background:rgba(255,255,255,.06);
+    backdrop-filter: blur(6px);
+  }
+  .sc-chip:hover{ background:rgba(203,170,103,.14); border-color:rgba(203,170,103,.70); }
+
+  /* Intro card */
+  .sc-card{
+    background: rgba(255,255,255,.92);
+    border:1px solid rgba(11,20,30,.08);
+border-radius:var(--sc-radius-lg);
+    box-shadow: var(--sc-shadow-soft);
+    overflow:hidden;
+    transition: transform var(--sc-dur) var(--sc-ease), box-shadow var(--sc-dur) var(--sc-ease), border-color var(--sc-dur) var(--sc-ease);
+  }
+  .sc-card:hover{ transform: translateY(-2px); box-shadow: var(--sc-shadow-hover); border-color: rgba(11,20,30,.14); }
+  .sc-grid-2{
+    display:grid;
+    grid-template-columns: 1.25fr .95fr;
+    gap:26px;
+    align-items:start;
+  }
+  .sc-intro{ padding:28px 28px 24px; }
+
+  .sc-kicker{
+    text-transform:uppercase;
+    font-size:.82rem;
+    letter-spacing:.12em;
+    color:rgba(11,20,30,.58);
+    margin-bottom:10px;
+  }
+  .sc-intro p{
+    color:var(--sc-muted);
+    line-height:1.85;
+    margin:0 0 14px 0;
+    font-size:1.03rem;
+  }
+  .sc-bullets{
+    margin:14px 0 0 0;
+    padding-left:18px;
+    color:var(--sc-muted);
+    line-height:1.75;
+  }
+
+  .sc-figure{ padding:18px 18px 18px 0; }
+  .sc-figure img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-radius:12px;
+    border:1px solid rgba(11,20,30,.10);
+    box-shadow: 0 10px 22px rgba(11,20,30,.12);
+    /* keep cards visually consistent even when photos vary */
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .sc-figure .sc-caption{
+    margin-top:10px;
+    font-size:.92rem;
+    color:rgba(11,20,30,.55);
+    padding-right:10px;
+    line-height:1.55;
+  }
+  .sc-figure .sc-caption a{ color:rgba(11,20,30,.70); }
+
+  /* Section headings */
+  .sc-h2{
+    font-family:"Raleway",sans-serif;
+    font-weight:400;
+    font-size:clamp(1.65rem, 2.1vw, 2.05rem);
+    letter-spacing:-0.01em;
+    margin:0 0 10px 0;
+    color:var(--sc-dark);
+    position: relative;
+  }
+  .sc-h2::after{
+    content:"";
+    display:block;
+    width:54px;
+    height:2px;
+    margin-top:12px;
+    background: linear-gradient(90deg, rgba(203,170,103,.95), rgba(203,170,103,.15));
+    border-radius:999px;
+    opacity:.85;
+  }
+  .sc-lead{
+    margin:0 0 18px 0;
+    color:rgba(11,20,30,.70);
+    font-size:1.06rem;
+    line-height:1.7;
+    max-width:80ch;
+  }
+
+  /* Widget card wrappers */
+  .sc-widget{
+    background:#fff;
+    border:1px solid var(--sc-border);
+    border-radius:var(--sc-radius-lg);
+    box-shadow: var(--sc-shadow-soft);
+    padding: clamp(16px, 2.2vw, 22px);
+    transition: transform var(--sc-dur) var(--sc-ease), box-shadow var(--sc-dur) var(--sc-ease), border-color var(--sc-dur) var(--sc-ease);
+  }
+  .sc-widget:hover{ transform: translateY(-2px); box-shadow: var(--sc-shadow-hover); border-color: rgba(11,20,30,.14); }
+
+  /* Buttons */
+  .sc-btnrow{ display:flex; flex-wrap:wrap; gap:12px; }
+  .sc-btn{
+    display:inline-block;
+    text-decoration:none;
+    padding:14px 18px;
+    border-radius:10px;
+    font-weight:500;
+    letter-spacing:.01em;
+    border:1px solid rgba(11,20,30,.10);
+    background:var(--sc-dark);
+    color:var(--sc-gold);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 12px 22px rgba(11,20,30,.18);
+    transition: transform var(--sc-dur) var(--sc-ease), background var(--sc-dur) var(--sc-ease), border-color var(--sc-dur) var(--sc-ease), box-shadow var(--sc-dur) var(--sc-ease);
+  }
+  .sc-btn:hover{ transform: translateY(-2px); background:#141f2d; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 16px 30px rgba(11,20,30,.22); }
+  .sc-btn.alt{
+    background:#fff;
+    color:var(--sc-dark);
+    border:1px solid rgba(203,170,103,.55);
+    box-shadow:none;
+  }
+  .sc-btn.alt:hover{ background:rgba(203,170,103,.10); }
+
+  /* Popular Searches: luxe dark band that matches header */
+  .sc-band-dark{
+    background:
+      radial-gradient(circle at top, rgba(203,170,103,.14), transparent 56%),
+      linear-gradient(180deg, #0b141e, #0b141e);
+    border-top:1px solid rgba(203,170,103,.18);
+    border-bottom:1px solid rgba(203,170,103,.18);
+  }
+  .sc-band-dark .sc-h2{ color:#fff; }
+  .sc-band-dark .sc-lead{ color:rgba(233,226,208,.86); }
+
+  .sc-ctaGrid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(12px, 1.6vw, 16px);
+  }
+  .sc-ctaCard{
+    background: rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius: var(--sc-radius-lg);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.28);
+    padding: clamp(16px, 2vw, 20px);
+    transition: transform var(--sc-dur) var(--sc-ease), box-shadow var(--sc-dur) var(--sc-ease), border-color var(--sc-dur) var(--sc-ease), background var(--sc-dur) var(--sc-ease);
+    min-height: 170px;
+    display:flex;
+    flex-direction:column;
+  }
+  .sc-ctaCard:hover{
+    transform: translateY(-2px);
+    border-color: rgba(203,170,103,.45);
+    background: rgba(255,255,255,0.08);
+    box-shadow: 0 22px 56px rgba(0,0,0,0.35);
+  }
+  .sc-ctaTop{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    margin-bottom:12px;
+  }
+  .sc-ctaIcon{
+    width:44px;
+    height:44px;
+    border-radius:999px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.18);
+    flex: 0 0 auto;
+  }
+  .sc-ctaTitle{
+    color:#fff;
+    font-weight:500;
+    font-size:1.12rem;
+    margin:0;
+  }
+  .sc-ctaSub{
+    margin-top:4px;
+    color: rgba(233,226,208,.78);
+    font-size:.98rem;
+    line-height:1.5;
+  }
+  .sc-ctaActions{ margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; }
+  .sc-ctaActions .sc-btn{ padding:11px 14px; border-radius:10px; }
+  .sc-ctaActions .sc-btn.alt{
+    background: transparent;
+    color: rgba(255,255,255,0.90);
+    border: 1px solid rgba(255,255,255,0.28);
+  }
+  .sc-ctaActions .sc-btn.alt:hover{
+    background: rgba(255,255,255,0.10);
+    border-color: rgba(255,255,255,0.45);
+  }
+
+  /* Widget safety + responsiveness */
+  .sc-widget-market { overflow:hidden; }
+  .sc-widget-market iframe,
+  .sc-widget-market embed,
+  .sc-widget-market object { width:100%; max-width:100%; }
+
+  /* Recently For Sale – make heading readable if the widget area is dark */
+  #recently-for-sale .sc-h2 { color: var(--sc-dark); }
+  #recently-for-sale .sc-lead { color: rgba(11,20,30,.72); }
+
+  /* Subtle reveal on scroll (keeps page feeling “alive” without being flashy) */
+  .sc-reveal{ opacity:0; transform: translateY(10px); }
+  .sc-reveal.is-in{
+    opacity:1;
+    transform: none;
+    transition: opacity 520ms var(--sc-ease), transform 520ms var(--sc-ease);
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce){
+    .sc-community{ scroll-behavior:auto; }
+    .sc-card,
+    .sc-widget,
+    .sc-ctaCard,
+    .sc-btn,
+    .sc-reveal.is-in{ transition:none !important; transform:none !important; }
+  }
+
+  /* Mobile */
+  @media (max-width: 980px){
+    .sc-grid-2{ grid-template-columns:1fr; }
+    .sc-figure{ padding:0 28px 22px 28px; }
+    .sc-ctaGrid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .sc-h1{ font-size:2.35rem; }
+  }
+
+  /* --- Buying Buddy Calculator + Ask Expert (sc-* skin) --- */
+
+/* Layout: use CSS grid so the two boxes align and "fit" cleanly */
+#calculator-contact > .row{
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 360px);
+  gap: 24px;
+  margin: 0;
+}
+#calculator-contact > .row > [class*="col-"]{
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 991.98px){
+  #calculator-contact > .row{
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+/* Card shells */
+#calculator-contact .mortgage-calculator,
+#calculator-contact .ask-expert{
+  background: #fff;
+  border: 1px solid var(--sc-border);
+  border-radius: var(--sc-radius);
+  box-shadow: 0 10px 26px rgba(11,20,30,.08);
+  padding: 22px;
+  height: 100%;
+}
+
+/* Headings */
+#calculator-contact h2.bfg-text-title{
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 1.85rem;
+  color: var(--sc-dark);
+  margin: 0 0 10px 0;
+}
+
+/* Base text */
+#calculator-contact .bfg-text,
+#calculator-contact label{
+  color: var(--sc-muted);
+}
+
+/* Keep calculator internals from overflowing */
+#calculator-contact .mortgage-calculator,
+#calculator-contact .mortgage-calculator *{
+  max-width: 100%;
+}
+#calculator-contact .mortgage-calculator .calculator-content{
+  gap: 18px;
+}
+#calculator-contact .mortgage-calculator .chart,
+#calculator-contact .mortgage-calculator svg{
+  max-width: 260px;
+}
+
+/* Inputs (calculator + form) */
+#calculator-contact .form-control,
+#calculator-contact .custom-select,
+#calculator-contact .input-group-text{
+  border-radius: 10px;
+  border: 1px solid rgba(11,20,30,.12);
+  background: #fff;
+  box-shadow: none;
+}
+
+/* Make multi-field calculator input-groups wrap instead of pushing width */
+#calculator-contact .mortgage-calculator .input-group{
+  flex-wrap: wrap;
+}
+#calculator-contact .mortgage-calculator .input-group > *{
+  flex: 1 1 auto;
+  min-width: 120px;
+}
+#calculator-contact .mortgage-calculator .input-group .input-group-prepend{
+  flex: 0 0 auto;
+  min-width: auto;
+}
+#calculator-contact .mortgage-calculator .custom-select{
+  min-width: 160px;
+}
+
+/* Disclaimer */
+#calculator-contact .bfg-text.disclaimer{
+  font-size: .92rem;
+  opacity: .85;
+  line-height: 1.55;
+}
+
+/* Ask Expert specific */
+#calculator-contact .ask-expert .mbb-form{ margin: 0; }
+
+#calculator-contact .ask-expert .bfg-agent-wrap{
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: 0 0 14px 0;
+}
+
+/* Fix avatar crop: ensure container doesn't clip and use object-position */
+#calculator-contact .ask-expert .mbb-agent-photo,
+#calculator-contact .ask-expert .mbb-AgentPhoto{
+  overflow: visible;
+}
+#calculator-contact .ask-expert .mbb-agent-photo img {
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 12px;
+  border: 1px solid var(--sc-border);
+  box-shadow: 0 2px 8px rgba(11,20,30,0.10);
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 4px;
+}
+
+#calculator-contact .ask-expert .mbb-AgentName{
+  font-weight: 600;
+  color: var(--sc-dark);
+  font-size: 1.05rem;
+}
+
+#calculator-contact .ask-expert .mbb-AgentTitle,
+#calculator-contact .ask-expert .mbb-AgentCompany{
+  color: rgba(11,20,30,.70);
+  font-size: .92rem;
+}
+
+/* Phone strip */
+#calculator-contact .ask-expert .mbb-agent-phone{
+  margin-top: 8px;
+  background: rgba(11,20,30,.04);
+  border: 1px solid rgba(11,20,30,.10);
+  border-radius: 10px;
+  padding: 10px 12px;
+  gap: 10px;
+}
+#calculator-contact .ask-expert .mbb-agent-phone a{
+  color: var(--sc-dark);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* Form labels */
+#calculator-contact .ask-expert label{
+  font-size: .95rem;
+  color: rgba(11,20,30,.78);
+  margin-bottom: 6px;
+}
+
+/* Input groups with icon boxes */
+#calculator-contact .ask-expert .input-group-text{
+  background: rgba(11,20,30,.05);
+  border: 1px solid rgba(11,20,30,.12);
+  border-right: 0;
+  border-radius: 10px 0 0 10px;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#calculator-contact .ask-expert .form-control{
+  border-left: 0;
+  border-radius: 0 10px 10px 0;
+  min-height: 46px;
+}
+/* First message input has no icon; keep it clean */
+#calculator-contact .ask-expert input[name="message_txt"]{
+  border-left: 1px solid rgba(11,20,30,.12) !important;
+  border-radius: 10px !important;
+}
+
+/* Submit button (dark, readable) */
+#calculator-contact .ask-expert .btn.btn-primary{
+  background: var(--sc-dark);
+  color: #fff;
+  border: 1px solid rgba(11,20,30,.35);
+  border-radius: 10px;
+  padding: 12px 18px;
+  min-width: 180px;
+  box-shadow: 0 10px 22px rgba(11,20,30,.14);
+}
+#calculator-contact .ask-expert .btn.btn-primary:hover{
+  background: #141f2d;
+  color: #fff;
+}
+
+  /* FAQ (Sage Coast editorial / luxury) */
+  .sc-faq .sc-faq-head { margin-bottom: 1.25rem; }
+  .sc-faq .sc-title { margin: .35rem 0 .35rem; letter-spacing: -0.01em; }
+  .sc-faq .sc-subtitle { max-width: 68ch; opacity: .9; }
+
+  .sc-faq-list {
+    display: grid;
+    gap: .85rem;
+    margin-top: 1.25rem;
+  }
+
+  .sc-faq-item {
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.03);
+    border-radius: 16px;
+    overflow: clip;
+    box-shadow:
+      0 10px 30px rgba(0,0,0,.18),
+      inset 0 1px 0 rgba(255,255,255,.04);
+    transition: transform .25s ease, border-color .25s ease, background .25s ease;
+  }
+
+  .sc-faq-item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255,255,255,.16);
+    background: rgba(255,255,255,.04);
+  }
+
+  .sc-faq-item > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 1.05rem 1.05rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: .75rem;
+  }
+
+  .sc-faq-item > summary::-webkit-details-marker { display: none; }
+
+  .sc-faq-q {
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+  }
+
+  .sc-faq-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.04);
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+    transition: transform .25s ease, background .25s ease, border-color .25s ease;
+  }
+
+  .sc-faq-icon::before,
+  .sc-faq-icon::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 2px;
+    background: rgba(255,255,255,.82);
+    border-radius: 2px;
+  }
+
+  .sc-faq-icon::after {
+    transform: rotate(90deg);
+    transition: opacity .2s ease;
+  }
+
+  .sc-faq-item[open] .sc-faq-icon {
+    transform: rotate(180deg);
+    background: rgba(255,255,255,.06);
+    border-color: rgba(255,255,255,.18);
+  }
+
+  .sc-faq-item[open] .sc-faq-icon::after {
+    opacity: 0;
+  }
+
+  .sc-faq-a {
+    padding: 0 1.05rem 1.05rem;
+    max-width: 80ch;
+    color: rgba(255,255,255,.88);
+  }
+
+  .sc-faq-a p { margin: .5rem 0 0; }
+
+  .sc-faq-footer {
+    margin-top: 1.25rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255,255,255,.10);
+  }
+
+  .sc-faq-cta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 18px;
+    padding: 1.05rem 1.05rem;
+  }
+
+  .sc-faq-cta .sc-eyebrow { font-weight: 650; opacity: .95; margin-bottom: .25rem; }
+  .sc-faq-cta p { margin: 0; opacity: .88; max-width: 68ch; }
+
+  .sc-faq-cta-actions {
+    display: inline-flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 860px) {
+    .sc-faq-cta { grid-template-columns: 1fr; }
+    .sc-faq-cta-actions { justify-content: flex-start; }
+  }
+
+  
+  /* === FAQ: match Sage Coast light-band + card system === */
+  .sc-faq.sc-section{
+    /* restore the section band background (inherits your .sc-section gradient) */
+    background: linear-gradient(180deg, var(--sc-bg) 0%, var(--sc-bg-alt) 100%) !important;
+  }
+
+  .sc-faq .sc-card{
+    background: rgba(255,255,255,.92) !important;
+    border: 1px solid rgba(11,20,30,.08) !important;
+    color: var(--sc-ink) !important;
+  }
+
+  /* Head text */
+  .sc-faq .sc-kicker{ color: rgba(11,20,30,.58) !important; }
+  .sc-faq .sc-title{
+    color: var(--sc-dark) !important;
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+  }
+  .sc-faq .sc-subtitle{ color: rgba(11,20,30,.70) !important; }
+
+  /* Items */
+  .sc-faq .sc-faq-item{
+    background: #fff !important;
+    border: 1px solid rgba(11,20,30,.10) !important;
+    box-shadow: 0 10px 26px rgba(11,20,30,.08);
+  }
+
+  .sc-faq .sc-faq-q{ color: var(--sc-dark) !important; }
+  .sc-faq .sc-faq-a,
+  .sc-faq .sc-faq-a p{ color: rgba(11,20,30,.72) !important; }
+
+  /* Icon (dark lines, light surface) */
+  .sc-faq .sc-faq-icon{
+    border: 1px solid rgba(11,20,30,.14) !important;
+    background: rgba(11,20,30,.03) !important;
+  }
+  .sc-faq .sc-faq-icon::before,
+  .sc-faq .sc-faq-icon::after{
+    background: rgba(11,20,30,.70) !important;
+  }
+
+  /* Footer CTA (light card within card) */
+  .sc-faq .sc-faq-footer{
+    border-top: 1px solid rgba(11,20,30,.10) !important;
+  }
+  .sc-faq .sc-faq-cta{
+    background: rgba(11,20,30,.03) !important;
+    border: 1px solid rgba(11,20,30,.10) !important;
+  }
+  .sc-faq .sc-faq-cta .sc-eyebrow{ color: var(--sc-dark) !important; }
+  .sc-faq .sc-faq-cta p{ color: rgba(11,20,30,.72) !important; }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Raleway:wght@300;400;500&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<div class="sc-community">
+  <!-- Slim Header -->
+  <section class="sc-topband">
+    <div class="sc-wrap">
+      <div class="sc-breadcrumbs">
+        <a href="https://sagecoastrealty.com/north-san-diego-county-communities/">Communities</a> <span style="opacity:.55">/</span> <span>Fallbrook</span>
+      </div>
+
+      <h1 class="sc-h1">Living in Fallbrook, CA</h1>
+      <p class="sc-sub">A practical guide to Fallbrook’s lifestyle, cost of living, and what changes from village streets to rolling hills, equestrian pockets, and grove-lined roads.</p>
+
+      <div class="sc-quicklinks">
+        <a class="sc-chip" href="#market-trends">Market Trends</a>
+        <a class="sc-chip" href="#recently-for-sale">Recently for Sale</a>
+        <a class="sc-chip" href="#popular-searches">Popular Searches</a>
+        <a class="sc-chip" href="#next-steps">Next Steps</a>
+        <a class="sc-chip" href="#fallbrook-faq">FAQ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <section class="sc-section sm" >
+    <div class="sc-wrap">
+      <div class="sc-card">
+        <div class="sc-grid-2">
+          <div class="sc-intro">
+            <div class="sc-kicker">Community Overview</div>
+            <p>Fallbrook is one of North County’s most distinctive places to live — a small-town core surrounded by rolling hills, avocado groves, and neighborhoods where privacy and open space matter as much as square footage.</p>
+<p><strong>Living in Fallbrook means choosing breathing room and a calmer rhythm.</strong> You’re close enough to reach the coast, I‑15 access, and North County shopping, yet far enough to feel removed from the pace. Within Fallbrook, lifestyle shifts quickly: village walkability, family neighborhoods, gated communities, and semi‑rural roads with larger lots and agricultural zoning.</p>
+<p>This guide is for buyers and relocators who want a grounded sense of what Fallbrook feels like day‑to‑day — how different pockets live, what ownership trade‑offs matter, and how Fallbrook real estate tends to behave across property types.</p>
+
+            <div class="sc-insights">
+              <div class="sc-kicker">Who Fallbrook is best for</div>
+
+              <div class="sc-insights-grid">
+                <div class="sc-insight">
+                  <div class="sc-eyebrow">Micro‑climates & road feel</div>
+                  <p>Fallbrook’s elevation and terrain can change daily comfort quickly — warmer afternoons, cooler evenings, and meaningful differences between the village area and hillside pockets. Road type and access also vary, which matters for commuting, deliveries, and day‑to‑day ease.</p>
+                </div>
+
+                <div class="sc-insight">
+                  <div class="sc-eyebrow">Land use, wells/septic & long‑term upkeep</div>
+                  <p>Some Fallbrook properties involve private roads, well and septic systems, or agricultural zoning that can affect insurance, maintenance routines, and future flexibility. These details rarely show up online but they matter for long‑term livability.</p>
+                </div>
+              </div>
+
+              <div class="sc-insights-footer">
+                None of these are deal‑breakers. They’re simply the details that separate a beautiful home from a home that stays easy to own over time.
+              </div>
+            </div>
+          </div>
+
+          <div class="sc-figure">
+            <img src="https://sagecoastrealty.com/wp-content/uploads/2025/12/fallbrook.png" alt="Fallbrook, California">
+            <div class="sc-caption">
+              Fallbrook, California | Sage Coast Realty
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Market Trends -->
+  <section id="market-trends" class="sc-section" >
+    <div class="sc-wrap">
+      <h2 class="sc-h2">Market Trends</h2>
+      <p class="sc-lead">Live, MLS-backed stats for Fallbrook, updated automatically.</p>
+
+      <p class="sc-lead">Fallbrook covers a wide range of property types — village homes, planned communities, and larger‑lot or equestrian properties — so city‑wide averages should be read with context.</p>
+
+      <div class="sc-widget sc-widget-market">
+        [mbb_widget data-type="MarketStats" data-filter="reportType:totals+mls_id:ca45+city:fallbrook"]
+      </div>
+    </div>
+  </section>
+
+  <!-- Recently For Sale -->
+  <section id="recently-for-sale" class="sc-section" >
+    <div class="sc-wrap">
+      <h2 class="sc-h2">Recently for Sale in Fallbrook</h2>
+      <p class="sc-lead">A look at homes currently on the market and coming soon in Fallbrook.</p>
+
+      <p class="sc-lead">Use this view to spot where demand is steady and where timing or terms may be more negotiable.</p>
+
+      <div class="sc-widget">
+        [mbb_widget data-type="InteractiveMap" data-filter="mls_id:ca45+listing_status:active,coming-soon+city:fallbrook+prop_img:true+login-panel:false+header-menu:false+limit:6+order:create_dt desc,price desc"]
+      </div>
+    </div>
+  </section>
+
+  <!-- FIX: removed stray extra </section> -->
+
+  <!-- Popular Searches -->
+  <section id="popular-searches" class="sc-section sc-band-dark">
+    <div class="sc-wrap">
+      <h2 class="sc-h2">Popular Searches</h2>
+      <p class="sc-lead">Shortcuts to the listings buyers are watching most closely right now.</p>
+
+      <p class="sc-lead">These filters reflect how buyers typically explore Fallbrook real estate: start with timing, then narrow by opportunity and terms.</p>
+
+      <div class="sc-ctaGrid">
+        <!-- Open Houses -->
+        <div class="sc-ctaCard">
+          <div class="sc-ctaTop">
+            <div class="sc-ctaIcon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="#cbaa67" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="5" width="18" height="16" rx="4"></rect><path d="M16 3v4M8 3v4M3 10h18"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="sc-ctaTitle">Open Houses</div>
+              <div class="sc-ctaSub">Homes you can tour soon, without the guesswork.</div>
+            </div>
+          </div>
+          <div class="sc-ctaActions">
+            <a class="sc-btn" href="/listing-results?data-filter=bb&mls_id=ca45&city=Fallbrook&openhouse_dt=weekend">This Weekend</a>
+            <a class="sc-btn alt" href="/listing-results?data-filter=bb&mls_id=ca45&city=Fallbrook&openhouse_dt=next-weekend">Next</a>
+          </div>
+        </div>
+
+        <!-- Recently Listed -->
+        <div class="sc-ctaCard">
+          <div class="sc-ctaTop">
+            <div class="sc-ctaIcon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="#cbaa67" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 11l9-7 9 7"></path><path d="M9 21V9h6v12"></path><path d="M21 21H3"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="sc-ctaTitle">Recently Listed</div>
+              <div class="sc-ctaSub">New inventory, before it’s widely noticed.</div>
+            </div>
+          </div>
+          <div class="sc-ctaActions">
+            <a class="sc-btn" href="/listing-results?data-filter=bb&mls_id=ca45&city=Fallbrook&create_dt=7">&lt; 7 days</a>
+            <a class="sc-btn alt" href="/listing-results?data-filter=bb&mls_id=ca45&city=Fallbrook&create_dt=30">&lt; 30 days</a>
+          </div>
+        </div>
+
+        <!-- Price Reductions -->
+        <div class="sc-ctaCard">
+          <div class="sc-ctaTop">
+            <div class="sc-ctaIcon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="#cbaa67" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.59 13.41a2 2 0 0 1 0 2.83l-4.17 4.17a2 2 0 0 1-2.83 0l-7.17-7.17a2 2 0 0 1 0-2.83l4.17-4.17a2 2 0 0 1 2.83 0z"></path>
+                <circle cx="7.5" cy="7.5" r="1.5"></circle>
+              </svg>
+            </div>
+            <div>
+              <div class="sc-ctaTitle">Price Reductions</div>
+              <div class="sc-ctaSub">Track homes where the seller is adjusting.</div>
+            </div>
+          </div>
+          <div class="sc-ctaActions">
+            <a class="sc-btn" href="/listing-results?data-filter=bb&mls_id=ca45&city=Fallbrook&price_drop=7">&lt; 7 days</a>
+            <a class="sc-btn alt" href="/listing-results?data-filter=bb&mls_id=ca45&city=Fallbrook&price_drop=30">&lt; 30 days</a>
+          </div>
+        </div>
+
+        <!-- Motivated Sellers -->
+        <div class="sc-ctaCard">
+          <div class="sc-ctaTop">
+            <div class="sc-ctaIcon" aria-hidden="true">
+              <svg width="22" height="22" fill="none" stroke="#cbaa67" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 13a8 8 0 0 1 8-8a8 8 0 0 1 8 8c0 4.42-3.58 8-8 8c-4.42 0-8-3.58-8-8z"></path>
+                <path d="M9 9l6 6"></path><path d="M9 15l6-6"></path>
+              </svg>
+            </div>
+            <div>
+              <div class="sc-ctaTitle">Motivated Sellers</div>
+              <div class="sc-ctaSub">Longer on market, often more flexible terms.</div>
+            </div>
+          </div>
+          <div class="sc-ctaActions">
+            <a class="sc-btn" href="/listing-results?data-filter=bb&mls_id=ca45&city=Fallbrook&create_dt_min=90">&gt; 90 Days</a>
+            <a class="sc-btn alt" href="/listing-results?data-filter=bb&mls_id=ca45&city=Fallbrook&create_dt_min=180">&gt; 180 Days</a>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        // Change this per community page
+        const CITY = "Fallbrook";
+        document.querySelectorAll('#popular-searches a[href*="city="]').forEach(a => {
+          a.href = a.href.replace(/city=[^&]+/, 'city=' + encodeURIComponent(CITY));
+        });
+      </script>
+    </div>
+  </section>
+
+  <!-- FAQ (Sage Coast editorial / luxury) -->
+  <section class="sc-section sc-faq" id="fallbrook-faq">
+    <div class="sc-wrap">
+      <div class="sc-card sc-reveal">
+        <div class="sc-faq-head">
+          <div class="sc-kicker">FAQ</div>
+          <h2 class="sc-title">Living in Fallbrook: Questions Buyers Ask Most</h2>
+          <p class="sc-subtitle">
+            Practical answers, grounded in what comes up during real tours, inspections, and neighborhood comparisons.
+          </p>
+        </div>
+
+        <div class="sc-faq-list" role="region" aria-label="Frequently asked questions about living in Fallbrook">
+<details class="sc-faq-item">
+  <summary>
+    <span class="sc-faq-q">Is Fallbrook a good place to live if I want more space and privacy?</span>
+    <span class="sc-faq-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="sc-faq-a">
+    <p>
+      Yes — that’s one of Fallbrook’s strongest draws. Many neighborhoods and semi‑rural pockets offer larger lots, more separation between homes,
+      and a quieter pace than the coast. The trade‑off is that road feel, services, and commute times vary more, so choosing the right pocket matters.
+    </p>
+  </div>
+</details>
+
+<details class="sc-faq-item">
+  <summary>
+    <span class="sc-faq-q">What should I know about wells, septic, and agricultural zoning in Fallbrook?</span>
+    <span class="sc-faq-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="sc-faq-a">
+    <p>
+      Some Fallbrook properties rely on well and septic systems and may fall under agricultural zoning. That can impact inspections, maintenance routines,
+      water considerations, and future use of the property. If you’re comparing larger lots, we’ll help you understand what’s typical for the area and what
+      you should confirm during due diligence.
+    </p>
+  </div>
+</details>
+
+<details class="sc-faq-item">
+  <summary>
+    <span class="sc-faq-q">How does Fallbrook compare to Oceanside, Vista, or San Marcos?</span>
+    <span class="sc-faq-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="sc-faq-a">
+    <p>
+      Fallbrook generally offers more land and a calmer, more rural‑leaning lifestyle. Nearby cities can be closer to coastal amenities and may feel more uniform
+      street‑to‑street. Fallbrook’s advantage is variety — from village living to hillside views — and the key is matching the neighborhood to your daily routine.
+    </p>
+  </div>
+</details>
+
+<details class="sc-faq-item">
+  <summary>
+    <span class="sc-faq-q">Are there planned communities in Fallbrook, or is it mostly rural?</span>
+    <span class="sc-faq-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="sc-faq-a">
+    <p>
+      It’s a mix. Fallbrook includes established neighborhoods and planned communities as well as larger‑lot areas that feel more agricultural or equestrian.
+      If you want lower‑maintenance living, we can focus your search on neighborhoods with more predictable roads and services. If you want acreage, we’ll
+      prioritize access, utilities, and long‑term upkeep.
+    </p>
+  </div>
+</details>
+
+<details class="sc-faq-item">
+  <summary>
+    <span class="sc-faq-q">What’s the smartest way to buy in Fallbrook without overpaying?</span>
+    <span class="sc-faq-icon" aria-hidden="true"></span>
+  </summary>
+  <div class="sc-faq-a">
+    <p>
+      In Fallbrook, value is often tied to fundamentals that photos don’t show: access, terrain, usability of land, and the true “feel” of the location.
+      A smart approach is to compare like‑for‑like properties, verify the ownership details that matter (water, septic, grading, road maintenance),
+      and negotiate based on what the property will realistically take to own and maintain.
+    </p>
+  </div>
+</details>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Steps: Payment Calculator + Ask a Local Expert -->
+  <section id="next-steps" class="sc-section" >
+    <div class="sc-wrap">
+      <h2 class="sc-h2">Estimate Your Payment</h2>
+      <p class="sc-lead">
+        Run quick numbers, then get a local, no-pressure answer based on your goals and timeline.
+      </p>
+      <p class="sc-lead"><strong>Who this is for:</strong> Buyers who value space, flexibility, and long-term livability over immediate coastal proximity. Fallbrook tends to reward buyers who plan ahead, understand land and access details, and want a lifestyle built around space and calm.</p>
+      <div class="sc-card" style="padding:22px;">
+                <section id="calculator-contact">
+                            <div class="row">
+                                <div class="col-12 col-md-8 mb-5 mb-md-0">
+                                    <mbb-paymentcalculator id="MBBv3_Calculator" tag="plugin/payment-calculator">
+                                        <div id="MortgageCalculator" class="mortgage-calculator">
+        <h2 class="bfg-text-title">Payment Calculator</h2>
+        <div class="bfg-text mb-3">
+            <span class="chart-number">$2,065</span> per month.
+            <span class="chart-period">30 year</span> fixed.
+            <span class="chart-interest">3.92</span>% interest.
+        </div>
+        <div class="calculator-content">
+            <div class="section-1">
+                <div class="calc-row-1">
+                    <div class="label-row">
+                        <label class="calc-price-label" for="HomePrice">Home Price</label>
+                        <label class="calc-period-label" for="period">Loan Type</label>
+                        <label class="calc-rate-label" for="InterestRate">Rate</label>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input type="text" class="form-control principalInterestCal calc-price" id="HomePrice" value="500000" format="Locale">
+                        <select class="form-control custom-select calc-period principalInterestCal" id="period" aria-describedby="period_label">
+                            <option value="10">10 year</option>
+                            <option value="15">15 year</option>
+                            <option value="20">20 year</option>
+                            <option value="25">25 year</option>
+                            <option value="30" selected="">30 year</option>
+                            <option value="40">40 year</option>
+                        </select>
+                        <div class="input-group-prepend ">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <input type="text" class="form-control calc-rate principalInterestCal" id="InterestRate" value="3.92%" aria-describedby="InterestRate_label">
+                    </div>
+                </div>
+                <div class="calc-row-2">
+                    <div class="label-row">
+                        <label for="DownPaymentDollar">Down Payment</label>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">$</span>
+                        </div>
+                        <input type="text" class="form-control principalInterestCal" id="DownPaymentDollar" value="100000" format="Locale">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">%</span>
+                        </div>
+                        <input type="text" class="form-control calc-down-percent principalInterestCal" id="DownPaymentPercent" value="20%" format="percent">
+                    </div>
+                </div>
+                <div class="calc-row-3 chart-values">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text border-0 color-1 bfg-bg text-white" color="color-1" id="principal_label">Principal &amp; Interest</span>
+                        </div>
+                        <input type="text" value="" readonly="" disabled="" class="form-control form-control-plaintext donutchart" format="Locale" id="principal" name="principal" aria-describedby="principal_label">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text border-0 color-2 bfg-bg text-white" color="color-2" id="insurance_label">+ Home Insurance</span>
+                        </div>
+                        <input type="text" value="$39" class="form-control donutchart" format="Locale" id="insurance" name="insurance" aria-describedby="insurance_label">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text border-0 color-3 bfg-bg text-white" color="color-3" id="propertytax_label">+ Property Tax</span>
+                        </div>
+                        <input type="text" value="$110" class="form-control donutchart" format="Locale" id="propertytax" name="propertytax" aria-describedby="insurance_label">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text border-0 color-4 bfg-bg text-white" color="color-4" id="hoafees_label">+ HOA Fees</span>
+                        </div>
+                        <input type="text" value="$25" class="form-control donutchart" format="Locale" id="hoafees" name="hoafees" aria-describedby="insurance_label">
+                    </div>
+                </div>
+            </div>
+            <div class="section-2">
+                <div class="chart mx-auto">
+                    <svg width="100%" height="100%" viewBox="0 0 45 45" class="donut">
+                        <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="5"></circle>
+                        <circle class="donut-segment color-1 stroke" id="mc_principal" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke-width="5" stroke-dasharray="91.57384987893462 8.426150121065376" stroke-dashoffset="91.57384987893462"></circle>
+                        <circle class="donut-segment color-2 stroke" id="mc_insurance" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke-width="5" stroke-dasharray="1.8886198547215496 98.11138014527845" stroke-dashoffset="93.46246973365618"></circle>
+                        <circle class="donut-segment color-3 stroke" id="mc_propertytax" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke-width="5" stroke-dasharray="5.326876513317192 94.67312348668281" stroke-dashoffset="98.78934624697337"></circle>
+                        <circle class="donut-segment color-4 stroke" id="mc_hoafees" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke-width="5" stroke-dasharray="1.2106537530266344 98.78934624697337" stroke-dashoffset="100"></circle>
+                        <g class="chart-text">
+                            <text x="50%" y="50%" class="chart-number">$2,065</text>
+                            <text x="50%" y="50%" class="chart-label">per month</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text-center px-2">
+                    Total interest paid over&nbsp;<span class="chart-period">30 year</span>s will be: <span class="chart-total-interest">$280,853</span>
+                </div>
+            </div>
+        </div>
+        <div class="bfg-text disclaimer lh-11">
+            All estimates and provided for informational purposes only. Actual amounts may vary. The output of the tool is not a loan offer or solicitation, nor is it financial or legal advice.
+            Information, rates, programs and loan scenarios shown are for example only as of 22-Dec-2025 and are subject to change without notice.
+            All products are subject to credit and property approval. Not all products are available in all states or for all loan amounts. Other restrictions and limitations apply.
+            Contact your preferred lender for the pricing associated with your specific transaction.
+            Calculations are generated by Open Source mortgage calculation software tools using common mathematical formulas. All calculations should be independently verified.
+            <button tabindex="0" class="btn btn-link p-0 border-0 s-inherit text-muted disclaimer" href="#" data-toggle="modal" data-target="#disclaimermodal">See assumptions and disclosures</button>
+        </div>
+        <div class="modal disclaimer-modal" id="disclaimermodal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Assumptions and Disclosures</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="disclaimer">
+                            <li>Interest rates and APRs presented are based on current market rates, are for informational purposes only,
+                                are subject to change without notice and may be subject to pricing add-ons related to property type, loan amount, loan-to-value, credit score and other variables - call for details.</li>
+                            <li>This is not a credit decision or a commitment to lend.</li>
+                            <li>Depending on loan guidelines, mortgage insurance may be required</li>
+                            <li>If mortgage insurance is required, the mortgage insurance premium could increase the APR and the monthly mortgage payment. Additional loan programs may be available.</li>
+                            <li>APR (annual percentage rate) reflects the effective cost of your loan on a yearly basis, taking into account such items as interest,
+                                most closing costs, discount points (also referred to as "points"), and loan-origination fees. One point is 1% of the mortgage amount (e.g., $1,000 on a $100,000 loan).</li>
+                            <li>Your monthly payment is not based on APR, but instead on the interest rate on your Note.</li>
+                            <li>Adjustable Rate Mortgage (ARM) rates assume no increase in the financial index after the initial fixed period. ARM rates and monthly payments are subject to increase after the fixed period.</li>
+                            <li>These special rates presented here are only available when you pre-qualify and are not guaranteed until lock-in.</li>
+                            <li>Amounts may be rounded up. Additional fees and closing costs apply. If the down payment is less than 20%, mortgage insurance may be needed, which could increase the monthly payment and APR.</li>
+                            <li>Calculations are generated by Open Source mortgage calculation software tools using common mathematical formulas. All calculations should be independently verified.</li>
+                            <li>Please contact a loan specialist to get specific payment examples and information regarding your particular needs.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                        </div>
+                                    </mbb-paymentcalculator>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="ask-expert">
+                                      <h2 class="bfg-text-title mt-0">Ask a Local Expert</h2>
+                                      <iframe
+                                        src="https://links.themarketingsystemscollective.com/widget/form/v2JXAwA8FBybZbh26Wnj"
+                                        style="width:100%;height:432px;border:none;border-radius:3px"
+                                        id="inline-v2JXAwA8FBybZbh26Wnj" 
+                                        data-layout="{'id':'INLINE'}"
+                                        data-trigger-type="alwaysShow"
+                                        data-trigger-value=""
+                                        data-activation-type="alwaysActivated"
+                                        data-activation-value=""
+                                        data-deactivation-type="neverDeactivate"
+                                        data-deactivation-value=""
+                                        data-form-name="Community Form"
+                                        data-height="432"
+                                        data-layout-iframe-id="inline-v2JXAwA8FBybZbh26Wnj"
+                                        data-form-id="v2JXAwA8FBybZbh26Wnj"
+                                        title="Community Form"
+                                      >
+                                      </iframe>
+                                      <script src="https://links.themarketingsystemscollective.com/js/form_embed.js"></script>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Soft reveal for key blocks (luxury “polish” without distraction) -->
+  <script>
+    (function () {
+      const root = document.querySelector('.sc-community');
+      if (!root) return;
+
+      const targets = root.querySelectorAll(
+        '.sc-topband .sc-wrap, .sc-card, .sc-widget, .sc-ctaCard'
+      );
+      targets.forEach((el) => el.classList.add('sc-reveal'));
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((e) => {
+              if (!e.isIntersecting) return;
+              e.target.classList.add('is-in');
+              obs.unobserve(e.target);
+            });
+          },
+          { root: null, threshold: 0.12, rootMargin: '0px 0px -10% 0px' }
+        );
+
+        targets.forEach((el) => io.observe(el));
+      } else {
+        targets.forEach((el) => el.classList.add('is-in'));
+      }
+    })();
+  </script>
+
+  <!-- Buying Buddy disclaimer cleanup -->
+  <script>
+    (function () {
+      if (!document.querySelector('.sc-community')) return;
+
+      function hideDupDisclaimers(root) {
+        const nodes = (root || document).querySelectorAll('.bfg-widget-disclaimer');
+        nodes.forEach((el) => {
+          if (el.closest('#idx-footer-disclaimer')) return;
+          el.style.display = 'none';
+        });
+      }
+
+      hideDupDisclaimers(document);
+
+      const obs = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          m.addedNodes && m.addedNodes.forEach((n) => {
+            if (n.nodeType !== 1) return;
+            if (n.matches && n.matches('.bfg-widget-disclaimer')) {
+              hideDupDisclaimers(document);
+            } else if (n.querySelector) {
+              const found = n.querySelector('.bfg-widget-disclaimer');
+              if (found) hideDupDisclaimers(document);
+            }
+          });
+        }
+      });
+
+      obs.observe(document.body, { childList: true, subtree: true });
+    })();
+  </script>
+
