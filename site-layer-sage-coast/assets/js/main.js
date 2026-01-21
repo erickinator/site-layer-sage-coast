@@ -6,6 +6,14 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // =========================================================================
+    // HELPER: Check if element is inside Buying Buddy UI
+    // =========================================================================
+    
+    function isInsideBuyingBuddy(node){
+      return !!(node && node.closest && node.closest('my-buying-buddy, .view-property-wrapper, .bb, .bfg, [data-bb], [class*="bfg-"], [id^="MBB"]'));
+    }
+
+    // =========================================================================
     // SECTION 1: VALUE CARDS ANIMATION
     // Purpose: Animate value item cards on scroll (About/Home page)
     // Selector: .tmsc-module .value-item
@@ -31,6 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelectorAll('.tmsc-module a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(event) {
+            if (isInsideBuyingBuddy(this)) return;
+            
             const module = anchor.closest('.tmsc-module');
             if (!module) return;
             
@@ -215,6 +225,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Smooth scroll for internal anchor links (Buyers Guide only)
         document.querySelectorAll('.sage-buyers-guide a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
+                if (isInsideBuyingBuddy(this)) return;
+                
                 const href = this.getAttribute('href');
                 if (!href || href === '#') return;
 
@@ -386,6 +398,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // =========================================================================
+    // Buying Buddy: prevent default "#" hash changes inside BB UI
+    // =========================================================================
+    
+    document.addEventListener('click', function(e){
+      const a = e.target.closest('a');
+      if(!a) return;
+      if(a.getAttribute('href') !== '#') return;
+      if(isInsideBuyingBuddy(a)) e.preventDefault();
+    }, true);
+
+    // =========================================================================
     // SECTION 8: DARK/LIGHT MODE TOGGLE & GLOBAL SMOOTH SCROLL
     // Purpose: Toggle dark mode and smooth scroll to anchor links globally
     // Elements: #modeToggle (toggle button)
@@ -415,16 +438,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Global Smooth Scrolling for Anchor Links (excludes section-specific handlers)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
+            if (isInsideBuyingBuddy(this)) return;
+            
             // Skip if already handled by section-specific handlers
             const module = this.closest('.tmsc-module');
             const buyersGuide = this.closest('.sage-buyers-guide');
             if (module || buyersGuide) return;
-
-            // Skip if click occurs inside Buying Buddy UI (modal/account/listings)
-            if (
-                this.closest('my-buying-buddy, .view-property-wrapper, .bb, .bfg, [data-bb], [class*="bfg-"], [id^="MBB"]') ||
-                this.matches('[data-type="LoginPanel"] *')
-            ) return;
             
             const targetId = this.getAttribute('href');
             if (!targetId || targetId === '#') return;
