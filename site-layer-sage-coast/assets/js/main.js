@@ -477,3 +477,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // =========================================================================
 
 });
+
+// =============================================================================
+// JQUERY SECTION: BACK TO ROSTER LINK FIX
+// Purpose: Hijack Buying Buddy "Back to Roster" link and redirect to team page
+// Selector: a[href*="/team/office/id/"]
+// =============================================================================
+
+jQuery(document).ready(function($) {
+    
+    /* START: Back Button Fix */
+    var backLink = $('a[href*="/team/office/id/"]');
+    
+    if (backLink.length > 0) {
+        // Change the href to point to team directory
+        backLink.attr('href', '/meet-our-team');
+        
+        // Update text while preserving the <i> icon
+        var iconElement = backLink.find('i');
+        
+        if (iconElement.length > 0) {
+            // Icon exists - preserve it and update the text
+            // Get the icon's HTML to preserve all attributes
+            var iconHtml = iconElement[0].outerHTML;
+            
+            // Set the link content to icon + new text
+            backLink.html(iconHtml + ' Back to Team');
+        } else {
+            // No icon exists - just replace all text
+            backLink.text(' Back to Team');
+        }
+    }
+    /* END: Back Button Fix */
+    
+});
