@@ -30,11 +30,11 @@ add_action('init', function () {
     // Service Areas
     $markdown .= "## Service Areas\n\n";
     $markdown .= "We specialize in North County San Diego real estate:\n\n";
-    $markdown .= "- Escondido\n";
-    $markdown .= "- Vista\n";
-    $markdown .= "- San Marcos\n";
-    $markdown .= "- Fallbrook\n";
-    $markdown .= "- Valley Center\n\n";
+    $markdown .= "- [Escondido](https://sagecoastrealty.com/living-in-escondido/)\n";
+    $markdown .= "- [San Marcos](https://sagecoastrealty.com/living-in-san-marcos/)\n";
+    $markdown .= "- [Vista](https://sagecoastrealty.com/living-in-vista/)\n";
+    $markdown .= "- [Fallbrook](https://sagecoastrealty.com/living-in-fallbrook/)\n";
+    $markdown .= "- [Valley Center](https://sagecoastrealty.com/living-in-valley-center/)\n\n";
     
     // Team Members
     $markdown .= "## Team\n\n";
@@ -49,8 +49,8 @@ add_action('init', function () {
     $markdown .= "- **Sharron Saidi** - Realtor®\n";
     $markdown .= "- **Summer Sayed** - Realtor®\n";
     $markdown .= "- **Jerome Stehly** - Realtor®\n\n";
-    $markdown .= "### Support Staff\n\n";
-    $markdown .= "- **Faith Camarata** - Support Staff (Transaction Coordinator)\n\n";
+    $markdown .= "### Transaction Coordinator\n\n";
+    $markdown .= "- **Faith Camarata** - Realtor® & Transaction Manager\n\n";
     
     // Specializations
     $markdown .= "## Specializations\n\n";
