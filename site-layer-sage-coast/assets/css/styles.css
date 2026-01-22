@@ -2174,8 +2174,8 @@ body.dark-mode .sage-home-about .value-text p {
 .hero-section.sage-contact {
   position: relative;
   width: 100%;
-  height: 80vh;
-  min-height: 500px;
+  height: 60vh;
+  min-height: 420px;
   overflow: hidden;
   padding: 0;
   margin: 0;
@@ -2209,7 +2209,7 @@ body.dark-mode .sage-home-about .value-text p {
 
 .sage-contact .hero-logo {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .sage-contact .hero-logo img {
@@ -2235,14 +2235,14 @@ body.dark-mode .sage-home-about .value-text p {
 .hero-section.sage-contact p {
   color: var(--secondary-light);
   font-size: 1.2rem;
-  margin: 0 0 30px;
+  margin: 0 0 18px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .hero-section.sage-contact p.location-tag {
   color: var(--primary-gold);
   font-size: 1rem;
-  margin: 0 0 25px;
+  margin: 0 0 12px;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -2250,7 +2250,7 @@ body.dark-mode .sage-home-about .value-text p {
 
 /* CONTACT SECTION */
 .contact-section.sage-contact {
-  padding: 100px 0;
+  padding: 60px 0;
   background-color: #ffffff;
 }
 
@@ -2264,7 +2264,7 @@ body.dark-mode .sage-home-about .value-text p {
 
 .sage-contact .contact-intro {
   text-align: center;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
   max-width: 700px;
 }
 
@@ -2300,18 +2300,30 @@ body.dark-mode .sage-home-about .value-text p {
 /* Cards grid */
 .sage-contact .contact-grid-container {
   width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 40px;
   display: flex;
   justify-content: center;
-  margin-bottom: 70px;
 }
 
 .sage-contact .contact-methods {
+  max-width: 1100px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(2, minmax(300px, 350px));
-  grid-template-rows: repeat(2, auto);
-  gap: 30px;
-  justify-content: center;
-  max-width: 800px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+@media (max-width: 1024px) {
+  .sage-contact .contact-methods {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .sage-contact .contact-methods {
+    grid-template-columns: 1fr;
+  }
 }
 
 .sage-contact .contact-card {
@@ -2321,13 +2333,14 @@ body.dark-mode .sage-home-about .value-text p {
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-  padding: 50px 30px;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   height: 100%;
   position: relative;
+  min-height: 220px;
 }
 
 .sage-contact .contact-card:hover {
@@ -2361,7 +2374,7 @@ body.dark-mode .sage-home-about .value-text p {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
+  margin-bottom: 12px;
   transition: background-color 0.3s ease;
 }
 
@@ -2384,8 +2397,13 @@ body.dark-mode .sage-home-about .value-text p {
   font-family: 'Raleway', sans-serif;
   font-size: 1.4rem;
   color: var(--primary-dark);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-weight: 500;
+}
+
+.sage-contact .contact-card p {
+  margin-bottom: 6px;
+  line-height: 1.45;
 }
 
 .sage-contact .contact-info-text {
@@ -2414,6 +2432,13 @@ body.dark-mode .sage-home-about .value-text p {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+/* Contact form widget above map */
+.sage-contact .bb-contact-form {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 24px;
 }
 
 .sage-contact .map-container {
@@ -4223,5 +4248,66 @@ body.dark-mode .sage-home-about .value-text p {
   .sage-tab-btn { font-size: 0.95rem; }
 }
 
+/* =========================================
+   ABOUT HERO NAV BUTTONS (Elementor-safe)
+   ========================================= */
 
+.hero-section.sage-about .sc-hero-nav {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
 
+.hero-section.sage-about .sc-hero-btn {
+  all: unset; /* hard reset to kill Elementor link styles */
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  padding: 12px 18px;
+  border-radius: 10px;
+
+  color: var(--primary-gold);
+  border: 1.5px solid var(--primary-gold);
+  background: transparent;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.hero-section.sage-about .sc-hero-btn:hover {
+  background-color: #ffffff;
+  color: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* Primary CTA (Meet Our Team) — slightly stronger */
+.hero-section.sage-about .sc-hero-btn-primary {
+  background: transparent;
+  border-width: 2px;
+}
+
+.hero-section.sage-about .sc-hero-btn-primary:hover {
+  background-color: #ffffff;
+  color: var(--primary-dark);
+}
+
+/* Mobile tuning */
+@media (max-width: 768px) {
+  .hero-section.sage-about .sc-hero-nav {
+    gap: 10px;
+  }
+  .hero-section.sage-about .sc-hero-btn {
+    font-size: 0.9rem;
+    padding: 11px 16px;
+  }
+}
